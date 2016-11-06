@@ -5,10 +5,19 @@
   pre_tasks:
     - name: Set hostname
       hostname: name={{inventory_hostname}}
-
-- name: Base bamboo service
-  hosts: base
-  sudo: yes
+    - name: Install git client
+      apt: name=git state=installed
   roles:
-    - { role: nodejs, tags: nodejs }
-    - { role: bamboo, tags: bamboo }
+  - role: python
+
+- hosts: base
+  roles:
+  - role: panda-service
+  - role: big-service
+
+#- name: Base bamboo service
+#  hosts: base
+#  sudo: yes
+#  roles:
+#    - { role: nodejs, tags: nodejs }
+#    - { role: bamboo, tags: bamboo }

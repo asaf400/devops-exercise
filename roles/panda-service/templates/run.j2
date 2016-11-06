@@ -1,0 +1,5 @@
+#!/bin/bash
+source {{ nanoservices_www_prefix }}/panda-service/venv/bin/activate
+$@
+cd {{ nanoservices_www_prefix }}/panda-service
+gunicorn -D -t {{ gunicorn_thread_count }} -k gevent --log-file=/tmp/python/panda.log -b 0.0.0.0:8080 wsgi:application

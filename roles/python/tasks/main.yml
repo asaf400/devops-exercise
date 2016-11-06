@@ -1,0 +1,16 @@
+---
+# This Playbook runs all the common plays in the deployment
+
+# Add python2.7 deb repository into repo list.
+- name: Ensure Python2.7 package repository is present
+  apt_repository: repo='ppa:fkrull/deadsnakes-python2.7' state=present
+
+- name: Ensure latest Python2.7 is installed including pip and virtualenv
+  apt: name={{ item }} state=installed update_cache=yes
+  with_items:
+   - python2.7
+   - python-pip
+
+- name: Ensure virtualenv-2.7 is installed
+  pip: name=virtualenv state=latest
+

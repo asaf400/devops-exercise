@@ -1,0 +1,23 @@
+---
+# This role deploys the big-service.
+
+- name: Create app directory for gunicorn
+  file: path={{ nanoservices_www_prefix }}/panda-service state=directory owner=vagrant group=vagrant
+
+# git checkout of latest master (PROD)
+- name: Checkout latest production
+  git: repo=https://github.com/asaf400/panda-service.git
+       dest={{ nanoservices_www_prefix }}/panda-service
+       version=master
+
+# Install specified python requirements.
+- name: Install Application requirements.txt
+  pip: requirements={{ nanoservices_www_prefix }}/panda-service/requirements.txt virtualenv={{ nanoservices_www_prefix }}/panda-service/venv virtualenv_command=virtualenv virtualenv_python=python2.7
+
+
+- name: Create the panda-service startup file
+  template: src=run.j2 dest={{ nanoservices_www_prefix }}/panda-service/run.sh mode=0755
+
+
+- name: Start the gunicorn configuration server service
+  command: creates={{ nanoservices_www_prefix }}/panda.log {{ nanoservices_www_prefix }}/panda-service/run.sh

@@ -1,0 +1,10 @@
+# The global variable file nanoservices installation
+
+# The directory prefix where gunicorn websites would be stored
+nanoservices_www_prefix: /tmp/python
+
+iface: '{{ ansible_default_ipv4.interface }}'
+
+# gunicorn default thread count
+gunicorn_thread_count: 4
+gunicorn_pid_path: /var/run/gunicorn
