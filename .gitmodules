@@ -1,0 +1,6 @@
+[submodule "nanoservices_code/big-service"]
+	path = nanoservices_code/big-service
+	url = git@github.com:asaf400/big-service
+[submodule "nanoservices_code/panda-service"]
+	path = nanoservices_code/panda-service
+	url = git@github.com:asaf400/panda-service
